@@ -23,11 +23,9 @@ GameServer::GameServer() {
 			"Connection: close\r\n\r\n";
 		_socket->write_some(buffer(req.data(), req.length()));
 		_socket->wait(_socket->wait_read);
-		size_t bytes = _socket->available();
-		std::cout << "bytes available:" << bytes <<std::endl;
-		if (bytes > 0)
+		while (_socket->available() > 0)
 		{
-			std::vector<char> vBuffer(bytes);
+			std::vector<char> vBuffer(_socket->available());
 			_socket->read_some(buffer(vBuffer.data(), vBuffer.size()));
 			for (auto c : vBuffer)
 				std::cout << c;
