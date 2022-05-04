@@ -1,9 +1,7 @@
 ﻿#include "GameServer.h"
 #include <iostream>
-#include <chrono>
 #include <asio/ts/buffer.hpp>
 #include <asio/ts/internet.hpp>
-using namespace std::chrono_literals;
 GameServer* GameServer::instance = 0;
 
 GameServer::GameServer() {
@@ -24,7 +22,7 @@ GameServer::GameServer() {
 			"Host: example.com\r\n"
 			"Connection: close\r\n\r\n";
 		_socket->write_some(buffer(req.data(), req.length()));
-		std::this_thread::sleep_for(200ms);
+		_socket->wait(_socket->wait_read);
 		size_t bytes = _socket->available();
 		std::cout << "bytes available:" << bytes <<std::endl;
 		if (bytes > 0)
