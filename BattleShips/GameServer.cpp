@@ -2,7 +2,7 @@
 #include <iostream>
 #include <asio/ts/buffer.hpp>
 #include <asio/ts/internet.hpp>
-#include <NetMessage.h>
+#include <Message.h>
 GameServer* GameServer::instance = 0;
 
 GameServer::GameServer() {
@@ -11,7 +11,7 @@ GameServer::GameServer() {
 	_socket = new tcp::socket(_context);
 	_socket->connect(_endPoint, _currentErrorCode);
 	_contextThread = std::thread([&]() {_context.run(); });
-}
+} 
 
 void GameServer::CreateServer() {
 	instance = new GameServer();

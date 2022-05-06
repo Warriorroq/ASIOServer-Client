@@ -140,8 +140,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="NetCommonHeaders.h" />
-    <ClInclude Include="NetMessage.h" />
+    <ClInclude Include="Client.h" />
+    <ClInclude Include="CommonHeaders.h" />
+    <ClInclude Include="Connection.h" />
+    <ClInclude Include="Message.h" />
+    <ClInclude Include="Server.h" />
+    <ClInclude Include="ThreadSaveQueue.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
