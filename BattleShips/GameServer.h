@@ -17,30 +17,30 @@ enum class CustomMessages : uint32_t {
 	ServerMessage
 };
 
-class GameServer : public server_interface<CustomMessages>{
+class GameServer : public CommonServer<CustomMessages>{
 public:
 	static GameServer* instance;
 	static void CreateServer();
 	void StartServer();
 	void StopServer();
 protected:
-	virtual bool OnClientConnect(std::shared_ptr<connection<CustomMessages>> client)
+	virtual bool OnClientConnect(std::shared_ptr<Connection<CustomMessages>> client)
 	{
 		return false;
 	}
 
-	virtual void OnClientDisconnect(std::shared_ptr<connection<CustomMessages>> client)
+	virtual void OnClientDisconnect(std::shared_ptr<Connection<CustomMessages>> client)
 	{
 
 	}
 
-	virtual void OnMessage(std::shared_ptr<connection<CustomMessages>> client, message<CustomMessages>& msg)
+	virtual void OnMessage(std::shared_ptr<Connection<CustomMessages>> client, Message<CustomMessages>& msg)
 	{
 
 	}
 private:
 	bool _isActive;
-	GameServer(uint16_t port) : server_interface<CustomMessages>(port) {
+	GameServer(uint16_t port) : CommonServer<CustomMessages>(port) {
 		_isActive = false;
 	};
 };

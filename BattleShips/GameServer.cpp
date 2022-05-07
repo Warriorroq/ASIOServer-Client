@@ -15,7 +15,7 @@ void GameServer::StartServer() {
 	_isActive = true;
 	instance->Start();
 	while (_isActive) {
-		Update();
+		Update(1);
 	}
 }
 

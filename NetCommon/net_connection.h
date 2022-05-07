@@ -187,13 +187,13 @@ namespace olc
 
 			void AddToIncomingMessageQueue()
 			{				
-				if (m_nOwnerType == Owner::server) 
+				if (p_nOwnerType == Owner::server)
 				{
-					m_qMessagesIn.PushBack({ this->shared_from_this(), m_msgTemporaryIn });
+					p_qMessagesIn.PushBack({ this->shared_from_this(), p_msgTemporaryIn });
 				}
 				else 
 				{
-					m_qMessagesIn.PushBack({ nullptr, m_msgTemporaryIn });
+					p_qMessagesIn.PushBack({ nullptr, p_msgTemporaryIn });
 				}
 
 				ReadHeader();

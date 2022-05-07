@@ -51,7 +51,7 @@ namespace olc
 				msg.body.resize(i);
 				msg.header.size = msg.size();
 				return msg;
-			}			
+			}
 		};
 
 		template <typename T>

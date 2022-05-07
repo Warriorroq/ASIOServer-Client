@@ -65,7 +65,7 @@ namespace olc
 							std::cout << "[SERVER] New Connection: " << socket.remote_endpoint() << "\n";
 
 							std::shared_ptr<Connection<T>> newconn = 
-								std::make_shared<Connection<T>>(Connection<T>::owner::server, 
+								std::make_shared<Connection<T>>(Connection<T>::Owner::server, 
 									p_asioContext, std::move(socket), p_qMessagesIn);
 						
 							if (OnClientConnect(newconn))

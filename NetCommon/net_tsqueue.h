@@ -54,7 +54,7 @@ namespace olc
 				p_deqQueue.emplace_back(std::move(item));
 
 				std::unique_lock<std::mutex> ul(p_muxBlocking);
-				cvBlocking.notify_one();
+				p_cvBlocking.notify_one();
 				p_muxQueue.unlock();
 			}
 
@@ -64,7 +64,7 @@ namespace olc
 				p_deqQueue.emplace_front(std::move(item));
 
 				std::unique_lock<std::mutex> ul(p_muxBlocking);
-				cvBlocking.notify_one();
+				p_cvBlocking.notify_one();
 				p_muxQueue.unlock();
 			}
 
