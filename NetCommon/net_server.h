@@ -22,37 +22,7 @@ namespace olc
 			virtual ~CommonServer()
 			{
 				Stop();
-			}
-
-			bool Start()
-			{
-				try
-				{
-					WaitForClientConnection();
-
-					p_threadContext = std::thread([this]() { p_asioContext.run(); });
-				}
-				catch (std::exception& e)
-				{
-					std::cerr << "[SERVER] Exception: " << e.what() << "\n";
-					return false;
-				}
-
-				std::cout << "[SERVER] Started!\n";
-				return true;
-			}
-
-			void Stop()
-			{
-				p_asioContext.stop();
-
-				if (p_threadContext.joinable()) 
-				{ 
-					p_threadContext.join(); 
-				}
-
-				std::cout << "[SERVER] Stopped!\n";
-			}
+			}			
 
 			// ASYNC - Instruct asio to wait for connection
 			void WaitForClientConnection()
@@ -152,6 +122,34 @@ namespace olc
 			}
 
 		protected:
+			bool Start()
+			{
+				try
+				{
+					WaitForClientConnection();
+
+					p_threadContext = std::thread([this]() { p_asioContext.run(); });
+				}
+				catch (std::exception& e)
+				{
+					std::cerr << "[SERVER] Exception: " << e.what() << "\n";
+					return false;
+				}
+
+				std::cout << "[SERVER] Started!\n";
+				return true;
+			}
+			void Stop()
+			{
+				p_asioContext.stop();
+
+				if (p_threadContext.joinable())
+				{
+					p_threadContext.join();
+				}
+
+				std::cout << "[SERVER] Stopped!\n";
+			}
 			virtual bool OnClientConnect(std::shared_ptr<Connection<T>> client)
 			{
 				return false;
