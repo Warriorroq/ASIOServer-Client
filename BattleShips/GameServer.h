@@ -9,14 +9,6 @@
 using namespace olc;
 using namespace net;
 
-enum class CustomMessages : uint32_t {
-	ServerAccept,
-	ServerDeny,
-	ServerPing,
-	MessageAll,
-	ServerMessage
-};
-
 class GameServer : public CommonServer<CustomMessages>{
 public:
 	static GameServer* instance;
@@ -26,17 +18,36 @@ public:
 protected:
 	virtual bool OnClientConnect(std::shared_ptr<Connection<CustomMessages>> client)
 	{
-		return false;
+		Message<CustomMessages> msg;
+		msg.header.id = CustomMessages::ServerAccept;
+		client->Send(msg);
+		return true;
 	}
 
 	virtual void OnClientDisconnect(std::shared_ptr<Connection<CustomMessages>> client)
 	{
-
+		std::cout << "Removing client [" << client->GetID() << "]\n";
 	}
 
 	virtual void OnMessage(std::shared_ptr<Connection<CustomMessages>> client, Message<CustomMessages>& msg)
 	{
+		switch (msg.header.id)
+		{
+		case CustomMessages::ServerPing:
+		{
+			std::cout << "[" << client->GetID() << "]: Server Ping\n";
 
+			// Simply bounce message back to client
+			client->Send(msg);
+		}
+		break;
+
+		case CustomMessages::ClientMessage:
+		{
+			MessageAllClients(msg);
+		}
+		break;
+		}
 	}
 private:
 	bool _isActive;

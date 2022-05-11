@@ -7,3 +7,10 @@
 #include "net_client.h"
 #include "net_server.h"
 #include "net_connection.h"
+
+enum class CustomMessages : uint32_t {
+	ServerPing,
+	ServerMessage,
+	ServerAccept,
+	ClientMessage,
+};

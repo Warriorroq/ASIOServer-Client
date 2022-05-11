@@ -20,6 +20,11 @@ namespace olc
 			MessageHeader<T> header{};
 			std::vector<uint8_t> body;
 
+			bool IsEmpty() 
+			{
+				return body.empty();
+			}
+
 			size_t size() const
 			{
 				return body.size();

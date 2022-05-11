@@ -7,7 +7,7 @@
 GameServer* GameServer::instance = 0;
 
 void GameServer::CreateServer() {
-	instance = new GameServer(8000);
+	instance = new GameServer(60000);
 }
 
 void GameServer::StartServer() {
@@ -15,8 +15,7 @@ void GameServer::StartServer() {
 	instance->Start();
 	while (_isActive) {
 		Update(1);
-		std::cout << "updated"<<std::endl;
-		std::this_thread::sleep_for(std::chrono::seconds(2));
+		std::this_thread::sleep_for(std::chrono::milliseconds(1000/30));
 	}
 }
 

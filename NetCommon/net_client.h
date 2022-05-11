@@ -1,6 +1,6 @@
 #pragma once
 #include "net_common.h"
-
+#include "net_connection.h"
 namespace olc
 {
 	namespace net
@@ -23,7 +23,7 @@ namespace olc
 				{
 					asio::ip::tcp::resolver resolver(p_context);
 					asio::ip::tcp::resolver::results_type endpoints = resolver.resolve(host, std::to_string(port));
-					p_connection = std::make_unique<Connection<T>>(Connection<T>::owner::client, p_context, asio::ip::tcp::socket(p_context), _qMessagesIn);
+					p_connection = std::make_unique<Connection<T>>(Connection<T>::Owner::client, p_context, asio::ip::tcp::socket(p_context), _qMessagesIn);
 					p_connection->ConnectToServer(endpoints);
 					p_thrContext = std::thread([this]() { p_context.run(); });
 				}
