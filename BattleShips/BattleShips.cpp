@@ -10,6 +10,10 @@ int main()
 {
     SetUpServer();
     while (true) {
-
+        char command;
+        cin >> command;
+        if (command == 'p')
+            for (auto p : Player::players)
+                cout << p.first << " " << p.second.nickName << endl;
     }
 }

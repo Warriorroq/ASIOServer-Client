@@ -15,7 +15,7 @@ void GameServer::StartServer() {
 	instance->Start();
 	while (_isActive) {
 		Update(1);
-		std::this_thread::sleep_for(std::chrono::milliseconds(1000/30));
+		std::this_thread::sleep_for(std::chrono::milliseconds(1000/60));
 	}
 }
 

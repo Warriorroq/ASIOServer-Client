@@ -15,10 +15,24 @@ public:
 		msg << time;
 		Send(msg);
 	}
+
 	void MessageAll()
 	{
 		Message<CustomMessages> msg;
-		msg.header.id = CustomMessages::ClientMessage;
+		msg.header.id = CustomMessages::PlayerAction;
+		std::string s;
+		std::getline(std::cin, s);
+		for (int i = s.size() - 1; i >= 0; i--) {
+			msg << s[i];
+		}
+		msg << PlayerActions::SendedTextMessage;
+		Send(msg);
+	}
+
+	void CreatePlayerOnServer() {
+		Message<CustomMessages> msg;
+		msg.header.id = CustomMessages::CreatePlayer;
+		std::cout << "enter nickname:\n";
 		std::string s;
 		std::getline(std::cin, s);
 		for (int i = s.size() - 1; i >= 0; i--) {

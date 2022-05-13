@@ -120,7 +120,6 @@ namespace olc
 					nMessageCount++;
 				}
 			}
-
 		protected:
 			bool Start()
 			{

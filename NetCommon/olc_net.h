@@ -12,5 +12,11 @@ enum class CustomMessages : uint32_t {
 	ServerPing,
 	ServerMessage,
 	ServerAccept,
-	ClientMessage,
+	PlayerAction,
+	CreatePlayer
+};
+
+enum class PlayerActions : uint32_t {
+	SendedTextMessage,
+	Shoot,
 };

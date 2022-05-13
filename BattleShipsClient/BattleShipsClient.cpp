@@ -34,8 +34,12 @@ void GetMessages() {
 				}
 				break;
 
-				case CustomMessages::ClientMessage:
+				case CustomMessages::PlayerAction:
 				{
+					PlayerActions action;
+					msg >> action;
+					if (action != PlayerActions::SendedTextMessage)
+						return;
 					char letter;
 					while(!msg.IsEmpty())
 					{
@@ -57,10 +61,9 @@ void GetMessages() {
 	}
 }
 void StartClientChat() {
-
+	c.CreatePlayerOnServer();
 	while (!bQuit)
 	{
-		std::cout << "command ";
 		char command;
 		std::cin >> command;
 		if (command == 's')
@@ -74,6 +77,8 @@ void StartClientChat() {
 int main() {
 	c.Connect("127.0.0.1", 60000);
 	clientChatThread = std::thread([]() {GetMessages();});
+	std::this_thread::sleep_for(std::chrono::milliseconds(100));
 	StartClientChat();
+	c.Disconnect();
 	clientChatThread.join();
 }
