@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{3539ef50-5e3f-49c3-ad61-d928bb386950}</ProjectGuid>
-    <RootNamespace>BattleShipsClient</RootNamespace>
+    <ProjectGuid>{aa97b0f0-80de-4b8a-858f-dfae098e64ef}</ProjectGuid>
+    <RootNamespace>GlobalMethodsForComfort</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -78,11 +78,10 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\Users\Warri\source\repos\BattleShips\NetCommon;C:\Users\Warri\Documents\CSDKs\asio-1.22.1\include;C:\Users\Warri\source\repos\BattleShips\GlobalMethodsForComfort</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\Users\Warri\source\repos\BattleShips\NetCommon</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\Users\Warri\source\repos\BattleShips\NetCommon;C:\Users\Warri\Documents\CSDKs\asio-1.22.1\include</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -141,18 +140,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="GameClient.h" />
+    <ClInclude Include="ComfortableStream.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GlobalMethodsForComfort\GlobalMethodsForComfort.vcxproj">
-      <Project>{aa97b0f0-80de-4b8a-858f-dfae098e64ef}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\NetCommon\NetCommon.vcxproj">
       <Project>{e7eae90c-dd68-4bc4-9a03-ca396919b6aa}</Project>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="BattleShipsClient.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

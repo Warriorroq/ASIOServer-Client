@@ -2,83 +2,48 @@
 #include <string.h>
 #include <thread>
 #include <olc_net.h>
-GameClient c;
-std::thread clientChatThread;
-bool bQuit = false;
+#include <ComfortableStream.h>
+
+GameClient client;
+thread clientChatThread;
+
 void GetMessages() {
-	while (!bQuit)
+	while (true)
 	{
-		if (c.IsConnected())
-		{
-			if (!c.Incoming().IsEmpty())
-			{
-				auto msg = c.Incoming().PopFront().msg;
-
-				switch (msg.header.id)
-				{
-				case CustomMessages::ServerAccept:
-				{
-					// Server has responded to a ping request				
-					std::cout << "Server Accepted Connection\n";
-				}
-				break;
-
-
-				case CustomMessages::ServerPing:
-				{
-					// Server has responded to a ping request
-					std::chrono::system_clock::time_point timeNow = std::chrono::system_clock::now();
-					std::chrono::system_clock::time_point timeThen;
-					msg >> timeThen;
-					std::cout << "Ping: " << std::chrono::duration<double>(timeNow - timeThen).count() << "\n";
-				}
-				break;
-
-				case CustomMessages::PlayerAction:
-				{
-					PlayerActions action;
-					msg >> action;
-					if (action != PlayerActions::SendedTextMessage)
-						return;
-					char letter;
-					while(!msg.IsEmpty())
-					{
-						msg >> letter;
-						std::cout << letter;
-					}
-					std::cout << '\n';
-				}
-				break;
-				}
-			}
-		}
-		else
-		{
-			std::cout << "Server Down\n";
-			bQuit = true;
-		}
-
+		client.RecieveMessage();
+		WaitMiliseconds(1000 / 60);
 	}
 }
+
 void StartClientChat() {
-	c.CreatePlayerOnServer();
-	while (!bQuit)
+	client.CreatePlayerOnServer();
+
+	while (true)
 	{
 		char command;
-		std::cin >> command;
+		cin >> command;
+
 		if (command == 's')
-			c.MessageAll();
+			client.MessageAll();
 		else if (command == 'e')
-			bQuit = true;
+			break;
 		else if (command == 'p')
-			c.PingServer();
+			client.PingServer();
+		WaitMiliseconds(1000/60);
 	}
+
+	client.Disconnect();
 }
+
 int main() {
-	c.Connect("127.0.0.1", 60000);
+	string ip; 
+	InputLine("enter ip:", ip);
+	client.Connect(ip, 60000);
+
 	clientChatThread = std::thread([]() {GetMessages();});
-	std::this_thread::sleep_for(std::chrono::milliseconds(100));
+	WaitMiliseconds(1000);
+
 	StartClientChat();
-	c.Disconnect();
+
 	clientChatThread.join();
 }
