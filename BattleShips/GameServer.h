@@ -25,18 +25,8 @@ protected:
 
 	virtual void OnClientDisconnect(std::shared_ptr<Connection<CustomMessages>> client)
 	{
-		Print("Removing client "); 
+		Print("Removing client ");
 		PrintLine(client->GetID());
-		Message<CustomMessages> message;
-		message.header.id = CustomMessages::PlayerAction;
-
-		auto player = Player::players[client->GetID()];
-		InputStringToMessage(message, player.nickName);
-		string leftMessage = "left the session";
-		InputStringToMessage(message, leftMessage);
-		message << PlayerActions::SendedTextMessage;
-
-		MessageAllClients(message);
 		Player::players.erase(client->GetID());
 	}
 
