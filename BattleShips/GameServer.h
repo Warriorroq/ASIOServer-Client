@@ -34,6 +34,22 @@ protected:
 	{
 		switch (msg.header.id)
 		{
+		case CustomMessages::Disconnect: 
+		{
+			Message<CustomMessages> serverMessage;
+			serverMessage.header.id = CustomMessages::PlayerAction;
+			auto player = Player::players[client->GetID()];
+			string disText = " disconnected";
+			string text = "[Server] ";
+
+			InputStringToMessage(serverMessage, disText);
+			InputStringToMessage(serverMessage, player.nickName);
+			InputStringToMessage(serverMessage, text);
+			serverMessage << PlayerActions::SendedTextMessage;
+
+			MessageAllClients(serverMessage);
+		}
+		break;
 		case CustomMessages::ServerPing:
 		{
 			Print(client->GetID());

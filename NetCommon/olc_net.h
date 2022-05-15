@@ -13,7 +13,8 @@ enum class CustomMessages : uint32_t {
 	ServerMessage,
 	ServerAccept,
 	PlayerAction,
-	CreatePlayer
+	CreatePlayer,
+	Disconnect
 };
 
 enum class PlayerActions : uint32_t {

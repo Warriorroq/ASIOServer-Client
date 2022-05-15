@@ -11,6 +11,12 @@ using namespace std;
 
 class GameClient : public CommonClient<CustomMessages> {
 public:
+	bool isActive;
+	GameClient()
+	{
+		isActive = true;
+	};
+
 	void PingServer() {
 		Message<CustomMessages> msg;
 		msg.header.id = CustomMessages::ServerPing;
@@ -97,5 +103,14 @@ public:
 		{
 			PrintLine("Server Down");
 		}
+	}
+	void ClientDisconnect()
+	{
+		Message<CustomMessages> message;
+		message.header.id = CustomMessages::Disconnect;
+		Send(message);
+		WaitMiliseconds(100);
+		isActive = false;
+		Disconnect();
 	}
 };
