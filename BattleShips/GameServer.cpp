@@ -4,10 +4,10 @@
 #include <asio/ts/buffer.hpp>
 #include <asio/ts/internet.hpp>
 
-GameServer* GameServer::instance = 0;
+shared_ptr<GameServer> GameServer::instance = 0;
 
 void GameServer::CreateServer() {
-	instance = new GameServer(60000);
+	instance = shared_ptr<GameServer>(new GameServer(60000));
 }
 
 void GameServer::StartServer() {

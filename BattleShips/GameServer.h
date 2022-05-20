@@ -7,10 +7,11 @@
 #include "olc_net.h"
 #include "Player.h"
 #include <ComfortableStream.h>
+#include <memory>
 
-class GameServer : public CommonServer<CustomMessages>{
+class GameServer : public CommonServer<CustomMessages> {
 public:
-	static GameServer* instance;
+	static shared_ptr<GameServer> instance;
 	static void CreateServer();
 	void StartServer();
 	void StopServer();
